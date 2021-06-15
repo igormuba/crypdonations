@@ -1,0 +1,26 @@
+{
+  "name": "crypdonations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "algorand-qrcode": "^1.1.1",
+    "canvas": "^2.8.0",
+    "crypto-balances-2": "^1.0.9",
+    "crypto-price": "0.0.6",
+    "easyqrcodejs-nodejs": "^4.3.2",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "qrcode": "^1.4.4",
+    "request-promise": "^4.2.6",
+    "sharp": "^0.28.3",
+    "text-to-svg": "^3.1.5",
+    "text2png": "^2.3.0"
+  }
+}
