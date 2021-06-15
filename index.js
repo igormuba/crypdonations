@@ -34,7 +34,12 @@ app.get("/:wallets/:goal/:explanation", async (req, res) => {
 
   let totalBalance = 0;
   for (let wallet of wallets) {
-    totalBalance += await getBalancesForWallet(wallet);
+    try {
+      totalBalance += await getBalancesForWallet(wallet);
+    } catch (err) {
+      console.log("Error on function getBalancesForWallet(wallet)");
+      console.log(err);
+    }
   }
 
   const date1 = new Date().getTime();
@@ -54,8 +59,11 @@ app.get("/:wallets/:goal/:explanation", async (req, res) => {
 
   let textPNG = await text2png(text, {
     textColor: "white",
-    borderColor: "black",
-    borderWidth: "8",
+    strokeColor: "black",
+    font: "45px sans-serif",
+    strokeWidth: 2,
+    lineSpacing: 10,
+    padding: 20,
   });
   res.send(textPNG);
 });
