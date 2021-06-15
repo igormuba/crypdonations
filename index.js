@@ -8,10 +8,12 @@ const express = require("express");
 const http = require("http");
 const text2png = require("text2png");
 const { registerFont, createCanvas } = require("canvas");
+const timeout = require("connect-timeout");
 
 const port = process.env.PORT || 3000;
 
 var app = express();
+app.use(timeout("30s"));
 
 const instanceBaseName = "Amazon ECS t4g.small for 1 year";
 //"Servers I am hosting right now: \n" +instancesNow +" IPFS servers";

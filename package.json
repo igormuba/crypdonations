@@ -12,6 +12,7 @@
   "dependencies": {
     "algorand-qrcode": "^1.1.1",
     "canvas": "^2.8.0",
+    "connect-timeout": "^1.9.0",
     "crypto-balances-2": "^1.0.9",
     "crypto-price": "0.0.6",
     "easyqrcodejs-nodejs": "^4.3.2",
