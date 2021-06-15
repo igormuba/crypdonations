@@ -53,6 +53,7 @@ app.get("/:wallets/:goal/:explanation", async (req, res) => {
   let textPNG = await text2png(text, {
     textColor: "white",
     borderColor: "black",
+    borderWidth: "8",
   });
   res.send(textPNG);
 });
