@@ -1,6 +1,7 @@
 const balance = require("crypto-balances-2");
 const price = require("crypto-price");
-const QRCode = require("easyqrcodejs-nodejs");
+// const QRCode = require("easyqrcodejs-nodejs");
+const QRCode = require("algorand-qrcode");
 const TextToSVG = require("text-to-svg");
 const textToSVG = TextToSVG.loadSync();
 const sharp = require("sharp");
@@ -71,16 +72,12 @@ app.get("/:wallets/:goal/:explanation", async (req, res) => {
 app.get("/:currency/:wallet", async function (req, res) {
   let { currency, wallet } = req.params;
   let qrCode = await getQRCodeForWallet(currency, wallet);
-  // res.set("Content-Type", "image/png");
-  // res.send(Buffer.from(qrCode));
+
   var img = Buffer.from(qrCode.split(";base64,").pop(), "base64");
-  // res.setHeader("Content-Type", "image/png");
   res.writeHead(200, {
     "Content-Type": "image/png;",
     "Content-Length": img.length,
   });
-  // res.end(img);
-  // res.download(qrCode);
   res.end(img);
 });
 
@@ -143,33 +140,18 @@ async function getBalancesForWallet(wallet) {
 // })();
 
 async function getQRCodeForWallet(currency, wallet) {
-  var options = {
-    text: wallet,
-    title: currency,
-    titleHeight: 48,
-    titleFont: "normal normal bold 24px Arial",
-  };
+  //for easyqrcodejs-nodejs package
+  // let options = {
+  //   title: currency,
+  //   titleHeight: 48,
+  //   titleFont: "normal normal bold 24px Arial",
+  //   text: wallet;
+  // };
+  // var qrcode = new QRCode(options);
+  // let data = await qrcode.toDataURL();
 
-  // New instance with options
-  var qrcode = new QRCode(options);
-
-  // Save QRCode image
-  let data = await qrcode.toDataURL();
+  //for algorand-qrcode package
+  let options = { rawUri: `${currency}:${wallet}` };
+  let data = QRCode.toDataURL(options);
   return data;
 }
-
-// (async () => {
-//   const svg = textToSVG.getSVG("hello");
-//   console.log(svg);
-
-//   let test = getQRCodeForWallet(wallets[0]);
-//   const roundedCornerResizer = sharp()
-//     .resize(200, 200)
-//     .composite([
-//       {
-//         input: roundedCorners,
-//         blend: "dest-in",
-//       },
-//     ])
-//     .png();
-// })();
